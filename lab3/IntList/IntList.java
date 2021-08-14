@@ -81,6 +81,7 @@ public class IntList {
      */
 
     public static IntList dcatenate(IntList A, IntList B) {
+        if (A==null) return B;
         IntList ATail = A;
         for( ; ATail.rest != null; ATail = ATail.rest);
         for(IntList i = B; i!=null; i=i.rest) {
@@ -111,6 +112,23 @@ public class IntList {
     }
 
 
+    /** the lab description page does not mention this method*/
+    public static IntList reverse(IntList A) {
+        IntList p = A;
+        IntList next = null;
+        IntList prev = null;
+        IntList tail = null;
+        while (p != null) {
+            next = p.rest;
+            if (next == null) {
+                tail = p;
+            }
+            p.rest = prev;
+            prev = p;
+            p = next;
+        }
+        return tail;
+    }
 
 
 
