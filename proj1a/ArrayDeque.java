@@ -26,7 +26,9 @@ public class ArrayDeque<T> {
         // 然后替换掉原来的items, nextFirst, nextLast
         items = newArray;
         nextFirst = 0;
-        nextLast = size;
+
+        // 这里resize之后 1-size 中都存放的元素 所以nextLast应该是 size+1
+        nextLast = (size+1)%newArray.length;
     }
 
     public void addFirst(T item) {

@@ -30,7 +30,8 @@ public class LinkedListDeque<T> {
     public void addFirst(T item) {
         size += 1;
         DequeNode newNode = new DequeNode(item, sentinel, sentinel.next);
-        if (sentinel.next != null) {//原来不是空的情况
+        if (sentinel.next != null) {
+            //原来不是空的情况
             sentinel.next.previous = newNode;
         }
         sentinel.next = newNode;
