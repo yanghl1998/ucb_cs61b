@@ -31,7 +31,7 @@ public class ArrayDeque<T> {
 
     public void addFirst(T item) {
         // 首先保证有空位置，没有空位置则resize
-        if(size == items.length) {
+        if (size == items.length) {
             resize(2);
         }
         // 在下一个first位置插入
@@ -64,8 +64,8 @@ public class ArrayDeque<T> {
 
     public void printDeque() {
         // 空数组直接返回
-        if(size == 0) {
-            return ;
+        if (size == 0) {
+            return;
         }
         int startPos = (nextFirst + 1) % items.length;
         for (int i = 0; i < size; i += 1) {
@@ -77,13 +77,13 @@ public class ArrayDeque<T> {
         // 空数组
         if (size == 0) {
             return null;
-        }
-        else {
+        } else {
             T retNode = items[(nextFirst + 1) % items.length];
             size -= 1;
             nextFirst = (nextFirst + 1) % items.length;
-            if (size * 2 < items.length)
+            if (size * 2 < items.length) {
                 resize(0.5);
+            }
             return retNode;
         }
     }
@@ -91,19 +91,21 @@ public class ArrayDeque<T> {
     public T removeLast() {
         if (size == 0) {
             return null;
-        }
-        else {
+        } else {
             T retNode = items[(nextLast - 1 + items.length) % items.length];
             size -= 1;
             nextLast = (nextLast - 1 + items.length) % items.length;
-            if (size * 2 < items.length)
+            if (size * 2 < items.length) {
                 resize(0.5);
+            }
             return retNode;
         }
     }
 
     public T get(int index) {
-        if (size == 0) return null;
+        if (size == 0) {
+            return null;
+        }
         int startPos = (nextFirst + 1) % items.length;
         return items[(startPos + index) % items.length];
     }

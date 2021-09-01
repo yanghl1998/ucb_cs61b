@@ -2,9 +2,9 @@ public class LinkedListDeque<T> {
 
     /*member variables*/
     private class DequeNode {
-        public T item;
-        public DequeNode previous;
-        public DequeNode next;
+        private T item;
+        private DequeNode previous;
+        private DequeNode next;
 
         public DequeNode(T x, DequeNode pre, DequeNode n) {
             item = x;
@@ -23,7 +23,7 @@ public class LinkedListDeque<T> {
         T tmp = (T) new Object();
         sentinel = new DequeNode(tmp, null, null);
         size = 0;
-        last=sentinel;
+        last = sentinel;
     }
 
     public LinkedListDeque(T item) {
@@ -31,19 +31,21 @@ public class LinkedListDeque<T> {
         sentinel.next = new DequeNode(item, null, null);
         sentinel.next.previous = sentinel;
         size = 1;
-        last=sentinel.next;
+        last = sentinel.next;
     }
 
     /* add an item of type T to the front of the deque*/
     public void addFirst(T item) {
         size += 1;
         DequeNode newNode = new DequeNode(item, sentinel, sentinel.next);
-        if (sentinel.next != null) //原来不是空的情况
+        if (sentinel.next != null) {//原来不是空的情况
             sentinel.next.previous = newNode;
+        }
         sentinel.next = newNode;
         // 如果原来的last节点是sentinel 说明是空 更新last节点
-        if (last == sentinel)
+        if (last == sentinel) {
             last = newNode;
+        }
     }
 
     /*add an item of type T to the back of the deque*/
@@ -76,7 +78,9 @@ public class LinkedListDeque<T> {
 
     /*remove and return the item at the front of the deque, return null if no item exists*/
     public T removeFirst() {
-        if (size == 0) return null;
+        if (size == 0) {
+            return null;
+        }
         // 首先把要返回的节点保存下来
         DequeNode retNode = sentinel.next;
         //接下来将哨兵的next和返回节点的next连接好 注意处理只有一个节点的情况
@@ -84,8 +88,7 @@ public class LinkedListDeque<T> {
             // 移除之后就只剩下哨兵了
             sentinel.next = null;
             last = sentinel;
-        }
-        else {
+        } else {
             retNode.next.previous = sentinel;
             sentinel.next = retNode.next;
         }
@@ -96,8 +99,9 @@ public class LinkedListDeque<T> {
 
     /*remove and return the item at the back of the deque, return null if no item exists*/
     public T removeLast() {
-        if (sentinel.next == null)
+        if (sentinel.next == null) {
             return null;
+        }
         size -= 1;
         DequeNode targetNode = last;
         targetNode.previous.next = null;
@@ -120,5 +124,20 @@ public class LinkedListDeque<T> {
         return p.item;
     }
 
+    /** getRecursive()函数 使用递归的形式实现get */
+    private T helper(int index, DequeNode startNode) {
+        if (index == 0) {
+            return startNode.item;
+        } else {
+            return helper(index-1, startNode.next);
+        }
+    }
 
+    public T getRecursive(int index) {
+        if (index >= size) {
+            return null;
+        }
+
+        return helper(index, sentinel.next);
+    }
 }
