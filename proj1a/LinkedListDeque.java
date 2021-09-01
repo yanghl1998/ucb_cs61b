@@ -38,11 +38,11 @@ public class LinkedListDeque<T> {
     public void addFirst(T item) {
         size += 1;
         DequeNode newNode = new DequeNode(item, sentinel, sentinel.next);
-        if(sentinel.next != null) //原来不是空的情况
+        if (sentinel.next != null) //原来不是空的情况
             sentinel.next.previous = newNode;
-        sentinel.next=newNode;
+        sentinel.next = newNode;
         // 如果原来的last节点是sentinel 说明是空 更新last节点
-        if(last == sentinel)
+        if (last == sentinel)
             last = newNode;
     }
 
@@ -66,42 +66,42 @@ public class LinkedListDeque<T> {
 
     /*print the items in the deque from first to last, separated by a space*/
     public void printDeque() {
-        if(this.isEmpty()) {
+        if (this.isEmpty()) {
             return;
         }
-        for(DequeNode i = sentinel.next; i != null; i = i.next) {
+        for (DequeNode i = sentinel.next; i != null; i = i.next) {
             System.out.print(i.item + " ");
         }
     }
 
     /*remove and return the item at the front of the deque, return null if no item exists*/
     public T removeFirst() {
-        if(size == 0) return null;
+        if (size == 0) return null;
         // 首先把要返回的节点保存下来
         DequeNode retNode = sentinel.next;
         //接下来将哨兵的next和返回节点的next连接好 注意处理只有一个节点的情况
         if (size == 1) {
             // 移除之后就只剩下哨兵了
-            sentinel.next=null;
-            last=sentinel;
+            sentinel.next = null;
+            last = sentinel;
         }
         else {
             retNode.next.previous = sentinel;
             sentinel.next = retNode.next;
         }
         // size-1
-        size -=1;
+        size -= 1;
         return retNode.item;
     }
 
     /*remove and return the item at the back of the deque, return null if no item exists*/
     public T removeLast() {
-        if(sentinel.next == null)
+        if (sentinel.next == null)
             return null;
         size -= 1;
         DequeNode targetNode = last;
-        targetNode.previous.next=null;
-        last=targetNode.previous;
+        targetNode.previous.next = null;
+        last = targetNode.previous;
         return targetNode.item;
     }
 
@@ -109,10 +109,11 @@ public class LinkedListDeque<T> {
     public T get(int index) {
         if (index >= size) {
             System.out.println("Out of index.");
+            return null;
         }
         DequeNode p = sentinel.next;
-        int cur=0;
-        while(cur < index) {
+        int cur = 0;
+        while (cur < index) {
             p = p.next;
             cur += 1;
         }
