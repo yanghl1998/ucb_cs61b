@@ -28,7 +28,7 @@ public class ArrayDeque<T> {
         nextFirst = 0;
 
         // 这里resize之后 1-size 中都存放的元素 所以nextLast应该是 size+1
-        nextLast = (size+1)%newArray.length;
+        nextLast = (size + 1) % newArray.length;
     }
 
     public void addFirst(T item) {
@@ -83,7 +83,7 @@ public class ArrayDeque<T> {
             T retNode = items[(nextFirst + 1) % items.length];
             size -= 1;
             nextFirst = (nextFirst + 1) % items.length;
-            if (size * 2 < items.length) {
+            if (size * 2 < items.length && items.length > 16) {
                 resize(0.5);
             }
             return retNode;
@@ -97,7 +97,7 @@ public class ArrayDeque<T> {
             T retNode = items[(nextLast - 1 + items.length) % items.length];
             size -= 1;
             nextLast = (nextLast - 1 + items.length) % items.length;
-            if (size * 2 < items.length) {
+            if (size * 2 < items.length && items.length > 16) {
                 resize(0.5);
             }
             return retNode;
