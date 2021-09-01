@@ -26,7 +26,7 @@ public class ArrayDeque<T> {
         // 然后替换掉原来的items, nextFirst, nextLast
         items = newArray;
         nextFirst = 0;
-        nextLast = size + 1;
+        nextLast = size;
     }
 
     public void addFirst(T item) {
